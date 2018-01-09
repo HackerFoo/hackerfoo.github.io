@@ -22,6 +22,7 @@ var searchData=
   ['string_5fmap_5freplace_5finsert',['string_map_replace_insert',['../map_8c.html#ad3dd9366849fce9bb4bbb3fecf679326',1,'map.c']]],
   ['string_5fmap_5fsort_5ffull',['string_map_sort_full',['../map_8c.html#ab27d8eebc9a2c47213c9e5342775b371',1,'map.c']]],
   ['string_5fmap_5funion',['string_map_union',['../map_8c.html#a2f789e2b0905c9fb1901577c8643cdf6',1,'map.c']]],
+  ['string_5fseg',['string_seg',['../support_8c.html#ab5c2645f3892648dc9244b99e8f32c8d',1,'support.c']]],
   ['support_2ec',['support.c',['../support_8c.html',1,'']]],
   ['swap',['swap',['../support_8c.html#a12e650a99128141a67f1c034800b5df3',1,'support.c']]],
   ['swap_5fblock',['swap_block',['../map_8c.html#ab6ee45bd963e8c38f929465c316babc9',1,'map.c']]],

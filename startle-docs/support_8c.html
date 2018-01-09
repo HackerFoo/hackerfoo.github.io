@@ -129,9 +129,15 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="suppo
 <tr class="memitem:a3e1ce49916be7da057970e10468d9a67"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structseg__t.html">seg_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="support_8c.html#a3e1ce49916be7da057970e10468d9a67">seg_after</a> (<a class="el" href="structseg__t.html">seg_t</a> s, char c)</td></tr>
 <tr class="memdesc:a3e1ce49916be7da057970e10468d9a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the segment after the first character matching <code>c</code>.  <a href="#a3e1ce49916be7da057970e10468d9a67">More...</a><br /></td></tr>
 <tr class="separator:a3e1ce49916be7da057970e10468d9a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c2645f3892648dc9244b99e8f32c8d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structseg__t.html">seg_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="support_8c.html#ab5c2645f3892648dc9244b99e8f32c8d">string_seg</a> (const char *str)</td></tr>
+<tr class="memdesc:ab5c2645f3892648dc9244b99e8f32c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a string segment from a C string.  <a href="#ab5c2645f3892648dc9244b99e8f32c8d">More...</a><br /></td></tr>
+<tr class="separator:ab5c2645f3892648dc9244b99e8f32c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33b11124427d92933d52f72e6e95159d"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="support_8c.html#a33b11124427d92933d52f72e6e95159d">lookup</a> (void *table, size_t width, size_t rows, <a class="el" href="structseg__t.html">seg_t</a> key_seg)</td></tr>
 <tr class="memdesc:a33b11124427d92933d52f72e6e95159d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the string segment key in a sorted table.  <a href="#a33b11124427d92933d52f72e6e95159d">More...</a><br /></td></tr>
 <tr class="separator:a33b11124427d92933d52f72e6e95159d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e77add34845dff48e75e4f22a820e27"><td class="memItemLeft" align="right" valign="top"><a id="a7e77add34845dff48e75e4f22a820e27"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TEST</b> (<a class="el" href="support_8c.html#a33b11124427d92933d52f72e6e95159d">lookup</a>)</td></tr>
+<tr class="separator:a7e77add34845dff48e75e4f22a820e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cada1c1e885ab52e30ee55641d33856"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="support_8c.html#a2cada1c1e885ab52e30ee55641d33856">lookup_linear</a> (void *table, size_t width, size_t rows, <a class="el" href="structseg__t.html">seg_t</a> key_seg)</td></tr>
 <tr class="memdesc:a2cada1c1e885ab52e30ee55641d33856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the string segment key in an unsorted table.  <a href="#a2cada1c1e885ab52e30ee55641d33856">More...</a><br /></td></tr>
 <tr class="separator:a2cada1c1e885ab52e30ee55641d33856"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -446,12 +452,12 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>arguments</b> (int 
 </div><div class="memdoc">
 
 <p>Look up the string segment key in a sorted table. </p>
-<p>Each row starts with a string pointer key. Binary search, O(log n) time. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Each row starts with a C string key. Binary search, O(log n) time. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">table</td><td>the table </td></tr>
     <tr><td class="paramname">width</td><td>width of each row in bytes </td></tr>
     <tr><td class="paramname">rows</td><td>the number of rows </td></tr>
-    <tr><td class="paramname">key_seg</td><td>the key string segment </td></tr>
+    <tr><td class="paramname">key_seg</td><td>the key string segment <div class="fragment"><div class="line">  <span class="keyword">struct </span>row {</div><div class="line">    <span class="keywordtype">char</span> name[8]; <span class="comment">// must be large enough for the key and terminating null byte</span></div><div class="line">    <span class="keywordtype">int</span> count;</div><div class="line">    <span class="keywordtype">double</span> cost_per;</div><div class="line">  };</div><div class="line"></div><div class="line">  <span class="comment">/* The rows must be sorted by the key. */</span></div><div class="line">  <span class="keyword">struct </span>row table[] = {</div><div class="line">    { <span class="stringliteral">&quot;apple&quot;</span>, 3, 0.95 },</div><div class="line">    { <span class="stringliteral">&quot;grape&quot;</span>, 5, 0.50 },</div><div class="line">    { <span class="stringliteral">&quot;pear&quot;</span>, 2, 1.50 }</div><div class="line">  };</div><div class="line"></div><div class="line">  <span class="keyword">struct </span>row *result = <a class="code" href="support_8c.html#a33b11124427d92933d52f72e6e95159d">lookup</a>(table, <a class="code" href="macros_8h.html#a252a2fc48d1a7d08b8b37fa11daf29e8">WIDTH</a>(table), <a class="code" href="macros_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a>(table), <a class="code" href="support_8c.html#ab5c2645f3892648dc9244b99e8f32c8d">string_seg</a>(<span class="stringliteral">&quot;grape&quot;</span>));</div><div class="line">  <span class="keywordflow">if</span>(result) {</div><div class="line">    printf(<span class="stringliteral">&quot;The total for %d %ss at $%.2f each is $%.2f.\n&quot;</span>,</div><div class="line">           result-&gt;count,</div><div class="line">           result-&gt;name,</div><div class="line">           result-&gt;cost_per,</div><div class="line">           result-&gt;count * result-&gt;cost_per);</div><div class="line">    <span class="keywordflow">return</span> 0;</div><div class="line">  } <span class="keywordflow">else</span> {</div><div class="line">    printf(<span class="stringliteral">&quot;Sorry, we don&#39;t have any of that.\n&quot;</span>);</div><div class="line">    <span class="keywordflow">return</span> -1;</div><div class="line">  }</div></div><!-- fragment --></td></tr>
   </table>
   </dd>
 </dl>
@@ -497,7 +503,7 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>arguments</b> (int 
 </div><div class="memdoc">
 
 <p>Look up the string segment key in an unsorted table. </p>
-<p>Each row starts with a string pointer key. Linear search, O(n) time. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Each row starts with a C string key. Linear search, O(n) time. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">table</td><td>the table </td></tr>
     <tr><td class="paramname">width</td><td>width of each row in bytes </td></tr>
@@ -924,6 +930,26 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>arguments</b> (int 
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if <code>x</code> was in the set <div class="fragment"><div class="line">  uintptr_t <span class="keyword">set</span>[7] = {0};</div><div class="line">  <span class="keyword">const</span> <span class="keywordtype">size_t</span> size = <a class="code" href="macros_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a>(<span class="keyword">set</span>);</div><div class="line">  uintptr_t data[] = {7, 8, 9, 14, 21, 28};</div><div class="line">  <a class="code" href="macros_8h.html#a53141508c264fee8a2f3b3446c703763">FOREACH</a>(i, data) {</div><div class="line">    <span class="keywordflow">if</span>(<a class="code" href="support_8c.html#adb0338032b19251449534cc99a641f14">set_insert</a>(data[i], <span class="keyword">set</span>, size)) <span class="keywordflow">return</span> -1;</div><div class="line">  }</div><div class="line">  <a class="code" href="macros_8h.html#a53141508c264fee8a2f3b3446c703763">FOREACH</a>(i, <span class="keyword">set</span>) {</div><div class="line">    <span class="keywordflow">if</span>(<span class="keyword">set</span>[i]) printf(<span class="stringliteral">&quot;set[%d] = %d\n&quot;</span>, (<span class="keywordtype">int</span>)i, (<span class="keywordtype">int</span>)<span class="keyword">set</span>[i]);</div><div class="line">  }</div><div class="line">  <a class="code" href="macros_8h.html#a53141508c264fee8a2f3b3446c703763">FOREACH</a>(i, data) {</div><div class="line">    <span class="keywordflow">if</span>(!<a class="code" href="support_8c.html#a0ca529206f82d21f73bf3a882655c8c9">set_member</a>(data[i], <span class="keyword">set</span>, size)) <span class="keywordflow">return</span> -2;</div><div class="line">  }</div><div class="line">  <a class="code" href="macros_8h.html#a53141508c264fee8a2f3b3446c703763">FOREACH</a>(i, data) {</div><div class="line">    <span class="keywordflow">if</span>(!<a class="code" href="support_8c.html#a62afae7fd3b702698a650f120bad0ebb">set_remove</a>(data[i], <span class="keyword">set</span>, size)) <span class="keywordflow">return</span> -3;</div><div class="line">  }</div></div><!-- fragment --></dd></dl>
+
+</div>
+</div>
+<a id="ab5c2645f3892648dc9244b99e8f32c8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c2645f3892648dc9244b99e8f32c8d">&#9670;&nbsp;</a></span>string_seg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structseg__t.html">seg_t</a> string_seg </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create a string segment from a C string. </p>
 
 </div>
 </div>
